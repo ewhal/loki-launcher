@@ -53,17 +53,11 @@ RUN ls -la /usr/include/boost/
 COPY . .  
 RUN bash init.sh 
 
-RUN cd src/loki-storage-server && sed -i 's/add_definitions(-DBOOST_LOG_DYN_LINK)//g' /usr/src/app/src/loki-storage-server/CmakeLists.txt  && mkdir -p build && cd build &&  cmake ../httpserver -DBOOST_ROOT="/usr/include/boost/" -DOPENSSL_ROOT_DIR="/usr/include/openssl/" && cmake --build . && cd /usr/src/app 
+RUN cd src/loki-storage-server && make release-httpserver && cd /usr/src/app 
+
 
 RUN cd src/loki/ && make release-static && cd /usr/src/app
-RUN  cd src/loki-network && make NINJA=ninja JSONRPC=ON && make install NINJA=ninja && cd /usr/src/app
-
-
-#RUN groupadd -g 999 appuser && \
-#    useradd -r -u 999 -g appuser appuser
-#RUN chown -R appuser:appuser /usr/src/app
-#USER appuser
-
+RUN cd src/loki-network && make NINJA=ninja JSONRPC=ON && make install NINJA=ninja && cd /usr/src/app
 
 
 CMD ["node", "index.js"]
