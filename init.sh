@@ -6,7 +6,7 @@ cd src/loki
 git submodule init
 git submodule update
 # attempt a build to set up some basics
-#DUSE_SINGLE_BUILDDIR=1 make
+DUSE_SINGLE_BUILDDIR=1 make
 cd ../..
 
 cd src/loki-storage-server

@@ -53,12 +53,12 @@ RUN ls -la /usr/include/boost/
 COPY . .  
 RUN bash init.sh 
 
-RUN cd src/loki-storage-server && make release-httpserver && cd /usr/src/app 
 
 
 RUN cd src/loki/ && make release-static && cd /usr/src/app
 RUN cd src/loki-network && make NINJA=ninja JSONRPC=ON && make install NINJA=ninja && cd /usr/src/app
-
+RUN cd src/loki-storage-server && make release-httpserver && cd /usr/src/app 
+RUN ls -la src/loki-storage-server/build/release
 
 CMD ["node", "index.js"]
 EXPOSE 38157 28083 1090
