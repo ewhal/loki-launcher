@@ -14,7 +14,6 @@ function iniToJSON(data) {
     // check for section
     if (line[0] == '[' && line[line.length - 1] == ']') {
       section = line.substring(1, line.length -1)
-      if (config[section] === undefined) config[section] = {}
       //console.log('found section', section)
       continue
     }
@@ -26,6 +25,7 @@ function iniToJSON(data) {
       if (value === 'true')  value = true
       if (value === 'false') value = false
       //console.log('key/pair ['+section+']', key, '=', value)
+      if (config[section] === undefined) config[section] = {}
       config[section][key]=value
       continue
     }
@@ -43,7 +43,7 @@ function jsonToINI(json) {
     for(var key in keys) {
       //console.log('key', key, 'value', keys[key])
       // if keys[key] is an array, then we need to send the same key each time
-      if (keys[key].constructor.name == 'Array') {
+      if (keys[key] !== undefined && keys[key].constructor.name == 'Array') {
         for(var i in keys[key]) {
           var v = keys[key][i]
           config += key + '=' + v + "\n"
