@@ -814,7 +814,7 @@ function launchLokinet(config, cb) {
 
 function checkConfig(config) {
   if (config === undefined) config = {}
-  if (config.auto_config_test_host === undefined ) config.auto_config_test_host='www.imdb.com'
+  if (config.auto_config_test_host === undefined ) config.auto_config_test_host='http://www.imdb.com'
   if (config.auto_config_test_port === undefined ) config.auto_config_test_port=80
   auto_config_test_port = config.auto_config_test_port
   auto_config_test_host = config.auto_config_test_host

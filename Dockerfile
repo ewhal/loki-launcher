@@ -58,6 +58,10 @@ RUN bash init.sh
 RUN cd src/loki/ && make release-static && cd /usr/src/app
 RUN cd src/loki-network && make NINJA=ninja JSONRPC=ON && make install NINJA=ninja && cd /usr/src/app
 RUN cd src/loki-storage-server && make release-httpserver && cd /usr/src/app 
+RUN chmod +x /usr/src/app/src/loki/build/release/bin/lokid
+RUN chmod +x /usr/src/app/src/loki-network/lokinet                                               
+RUN chmod +x /usr/src/app/src/loki-storage-server/build/release/httpserver
+
 RUN ls -la src/loki-storage-server/build/release
 
 CMD ["node", "index.js"]
