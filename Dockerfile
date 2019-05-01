@@ -179,7 +179,7 @@ COPY src/loki .
 ENV USE_SINGLE_BUILDDIR=1
 ARG NPROC
 RUN set -ex && \
-    git submodule init && git submodule update && \
+#    git submodule init && git submodule update && \
     rm -rf build && \
     if [ -z "$NPROC" ] ; \
     then make -j$(nproc) release-static ; \
@@ -202,8 +202,7 @@ RUN ./lokinet-bootstrap
 #FROM alpine:latest as storage
 FROM ubuntu:latest as storage
 
-#RUN apk update && apk add build-essential git cmake libssl-dev libsodium-dev wget pkg-config
-RUN apt update && apt install -y build-essential git cmake libssl-dev libsodium-dev wget pkg-config
+RUN apt-get update -y && apt-get install -y build-essential git cmake libssl-dev libsodium-dev wget pkg-config
 WORKDIR /src
 
 COPY src/loki-storage-server/install-deps-linux.sh install-deps-linux.sh
